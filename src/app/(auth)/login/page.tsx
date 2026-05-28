@@ -57,7 +57,8 @@ export default function LoginPage() {
       await login(data);
       toast.success("登录成功");
       // router.push(callbackUrl);
-      router.refresh();
+      // router.refresh();
+      router.push("/");
     } catch (error: unknown) {
       let errorMessage = "登录失败，请检查邮箱和密码";
       if (error instanceof Error) {
