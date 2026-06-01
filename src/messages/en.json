@@ -1,0 +1,8 @@
+{
+  "Common": {
+    "title": "I18n Test Page",
+    "description": "Current language is English",
+    "switchLanguage": "Switch to 中文",
+    "currentLocale": "Current language: {locale}"
+  }
+}

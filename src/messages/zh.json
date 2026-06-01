@@ -1,0 +1,8 @@
+{
+  "Common": {
+    "title": "国际化测试页面",
+    "description": "当前语言为中文",
+    "switchLanguage": "切换到 English",
+    "currentLocale": "当前语言：{locale}"
+  }
+}
