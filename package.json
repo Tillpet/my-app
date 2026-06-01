@@ -30,6 +30,7 @@
     "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@radix-ui/themes": "^3.3.0",
+    "@remotion/player": "^4.0.470",
     "@tanstack/react-query": "^5.94.5",
     "@tanstack/react-table": "^8.21.3",
     "@types/bcryptjs": "^2.4.6",
@@ -51,12 +52,14 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.71.1",
+    "remotion": "^4.0.470",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@remotion/cli": "^4.0.470",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20.19.32",
     "@types/pg": "^8.16.0",
@@ -69,5 +72,5 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "packageManager": "pnpm@10.18.0"
+  "packageManager": "pnpm@11.5.0+sha512.dbfcc4f81cf48597afd4bc391ffdf12c11f1a9fb83a395bfa6b0a2d9cc2fd8ffebafdb1ccbd529632153f793904c2615b7f09fe1a345473fd1c35845172a8eb1"
 }
