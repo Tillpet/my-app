@@ -217,6 +217,143 @@
     --input: hsl(270 20% 20%);
     --ring: hsl(262 50% 40%);
   }
+
+  /* Plant 主题 ──────────────────────────────────────
+     Material 3 风格 · 植物/氧气主题
+     用法：在容器上添加 data-theme="plant" 即可启用 */
+  [data-theme="plant"] {
+    /* Standard shadcn tokens (overridden) */
+    --background: #f9f9f8;
+    --foreground: #191c1c;
+
+    --primary: #061b0e;
+    --primary-foreground: #ffffff;
+
+    --secondary: #4c6455;
+    --secondary-foreground: #ffffff;
+
+    --accent: #e7e8e7;
+    --accent-foreground: #191c1c;
+
+    --destructive: #ba1a1a;
+    --destructive-foreground: #ffffff;
+
+    --border: #c3c8c1;
+    --input: #c3c8c1;
+    --ring: #4d6453;
+
+    --card: #ffffff;
+    --card-foreground: #191c1c;
+
+    --popover: #ffffff;
+    --popover-foreground: #191c1c;
+
+    --muted: #edeeed;
+    --muted-foreground: #434843;
+
+    /* Plant-specific M3 tokens (exposed as Tailwind utilities) */
+    --plant-surface: #f9f9f8;
+    --plant-on-surface: #191c1c;
+    --plant-on-background: #191c1c;
+    --plant-on-surface-variant: #434843;
+
+    --plant-surface-dim: #d9dad9;
+    --plant-surface-bright: #f9f9f8;
+    --plant-surface-container-lowest: #ffffff;
+    --plant-surface-container-low: #f3f4f3;
+    --plant-surface-container: #edeeed;
+    --plant-surface-container-high: #e7e8e7;
+    --plant-surface-container-highest: #e1e3e2;
+    --plant-surface-variant: #e1e3e2;
+    --plant-surface-tint: #4d6453;
+
+    --plant-outline: #737973;
+    --plant-outline-variant: #c3c8c1;
+
+    --plant-inverse-surface: #2e3131;
+    --plant-inverse-on-surface: #f0f1f0;
+    --plant-inverse-primary: #b4cdb8;
+
+    --plant-primary-container: #1b3022;
+    --plant-on-primary-container: #b4cdb8;
+    --plant-primary-fixed: #d0e9d4;
+    --plant-primary-fixed-dim: #b4cdb8;
+    --plant-on-primary-fixed: #0b2013;
+    --plant-on-primary-fixed-variant: #364c3c;
+
+    --plant-secondary-container: #cbe6d4;
+    --plant-on-secondary-container: #506859;
+    --plant-secondary-fixed: #cee9d6;
+    --plant-secondary-fixed-dim: #b2cdbb;
+    --plant-on-secondary-fixed: #082014;
+    --plant-on-secondary-fixed-variant: #344c3e;
+
+    --plant-tertiary: #5a0d02;
+    --plant-on-tertiary: #ffffff;
+    --plant-tertiary-container: #ffdad3;
+    --plant-on-tertiary-container: #e2725b;
+    --plant-tertiary-fixed: #ffdad3;
+    --plant-tertiary-fixed-dim: #ffb4a5;
+    --plant-on-tertiary-fixed: #3e0500;
+    --plant-on-tertiary-fixed-variant: #802918;
+
+    --plant-error: #ba1a1a;
+    --plant-on-error: #ffffff;
+    --plant-error-container: #ffdad6;
+    --plant-on-error-container: #93000a;
+
+    /* Plant brand depth for organic shadows */
+    --plant-shadow-rgb: 27, 48, 34;
+  }
+
+  [data-theme="plant"].dark {
+    --background: #112016;
+    --foreground: #e1e3e2;
+
+    --primary: #b4cdb8;
+    --primary-foreground: #061b0e;
+
+    --secondary: #b2cdbb;
+    --secondary-foreground: #082014;
+
+    --accent: #1b3022;
+    --accent-foreground: #e1e3e2;
+
+    --destructive: #ffb4ab;
+    --destructive-foreground: #690005;
+
+    --border: #2e3131;
+    --input: #2e3131;
+    --ring: #4d6453;
+
+    --card: #1b3022;
+    --card-foreground: #e1e3e2;
+
+    --popover: #1b3022;
+    --popover-foreground: #e1e3e2;
+
+    --muted: #1b3022;
+    --muted-foreground: #a9aea9;
+  }
+  /* Cosmic 主题 ──────────────────────────────────────── */
+  [data-theme="cosmic"] {
+    --cosmic-bg: #030014;
+    --cosmic-bg-raised: #0a0420;
+    --cosmic-glass: rgba(255, 255, 255, 0.04);
+    --cosmic-glass-strong: rgba(255, 255, 255, 0.08);
+    --cosmic-cyan: #22d3ee;
+    --cosmic-cyan-bright: #00f0ff;
+    --cosmic-violet: #8b5cf6;
+    --cosmic-violet-bright: #a855f7;
+    --cosmic-magenta: #ff2dd1;
+    --cosmic-text: #e0e7ff;
+    --cosmic-text-muted: #7a8bbf;
+    --cosmic-border: rgba(34, 211, 238, 0.15);
+    --cosmic-border-glow: rgba(139, 92, 246, 0.2);
+    --cosmic-success: #10ffb0;
+    --cosmic-warning: #ffb13b;
+    --cosmic-danger: #ff2dd1;
+  }
 }
 
 @layer base {
@@ -273,6 +410,61 @@
 }
 
 @layer components {
+  /* Plant dashboard: organic shadow, glass nav, custom scrollbar */
+  [data-theme="plant"] {
+    font-family: var(--font-plant-body);
+  }
+
+  .organic-shadow {
+    box-shadow: 0 4px 16px rgba(var(--plant-shadow-rgb), 0.06);
+  }
+
+  .glass-nav {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Plant dashboard: custom scrollbar */
+  .plant-scroll::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .plant-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .plant-scroll::-webkit-scrollbar-thumb {
+    background: var(--plant-secondary-fixed-dim);
+    border-radius: 10px;
+  }
+
+  /* Staggered fade-in for entries */
+  @keyframes plant-fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-plant-fade-in {
+    animation: plant-fade-in-up 0.7s ease-out both;
+  }
+
+  /* 3D perspective for plant-card parallax */
+  .plant-card-3d {
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 220ms ease-out;
+  }
 }
 
 @theme inline {
@@ -343,4 +535,78 @@
   --radius-3xl: calc(var(--radius) + 12px);
 
   --radius-4xl: calc(var(--radius) + 16px);
+
+  /* Plant theme color utilities (Material 3 botanical palette) */
+  --color-plant-surface: var(--plant-surface);
+  --color-plant-on-surface: var(--plant-on-surface);
+  --color-plant-on-background: var(--plant-on-background);
+  --color-plant-on-surface-variant: var(--plant-on-surface-variant);
+
+  --color-plant-surface-dim: var(--plant-surface-dim);
+  --color-plant-surface-bright: var(--plant-surface-bright);
+  --color-plant-surface-container-lowest: var(--plant-surface-container-lowest);
+  --color-plant-surface-container-low: var(--plant-surface-container-low);
+  --color-plant-surface-container: var(--plant-surface-container);
+  --color-plant-surface-container-high: var(--plant-surface-container-high);
+  --color-plant-surface-container-highest: var(--plant-surface-container-highest);
+  --color-plant-surface-variant: var(--plant-surface-variant);
+  --color-plant-surface-tint: var(--plant-surface-tint);
+
+  --color-plant-outline: var(--plant-outline);
+  --color-plant-outline-variant: var(--plant-outline-variant);
+
+  --color-plant-inverse-surface: var(--plant-inverse-surface);
+  --color-plant-inverse-on-surface: var(--plant-inverse-on-surface);
+  --color-plant-inverse-primary: var(--plant-inverse-primary);
+
+  --color-plant-primary-container: var(--plant-primary-container);
+  --color-plant-on-primary-container: var(--plant-on-primary-container);
+  --color-plant-primary-fixed: var(--plant-primary-fixed);
+  --color-plant-primary-fixed-dim: var(--plant-primary-fixed-dim);
+  --color-plant-on-primary-fixed: var(--plant-on-primary-fixed);
+  --color-plant-on-primary-fixed-variant: var(--plant-on-primary-fixed-variant);
+
+  --color-plant-secondary-container: var(--plant-secondary-container);
+  --color-plant-on-secondary-container: var(--plant-on-secondary-container);
+  --color-plant-secondary-fixed: var(--plant-secondary-fixed);
+  --color-plant-secondary-fixed-dim: var(--plant-secondary-fixed-dim);
+  --color-plant-on-secondary-fixed: var(--plant-on-secondary-fixed);
+  --color-plant-on-secondary-fixed-variant: var(--plant-on-secondary-fixed-variant);
+
+  --color-plant-tertiary: var(--plant-tertiary);
+  --color-plant-on-tertiary: var(--plant-on-tertiary);
+  --color-plant-tertiary-container: var(--plant-tertiary-container);
+  --color-plant-on-tertiary-container: var(--plant-on-tertiary-container);
+  --color-plant-tertiary-fixed: var(--plant-tertiary-fixed);
+  --color-plant-tertiary-fixed-dim: var(--plant-tertiary-fixed-dim);
+  --color-plant-on-tertiary-fixed: var(--plant-on-tertiary-fixed);
+  --color-plant-on-tertiary-fixed-variant: var(--plant-on-tertiary-fixed-variant);
+
+  --color-plant-error: var(--plant-error);
+  --color-plant-on-error: var(--plant-on-error);
+  --color-plant-error-container: var(--plant-error-container);
+  --color-plant-on-error-container: var(--plant-on-error-container);
+
+  /* Plant-specific fonts */
+  --font-plant-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-plant-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Cosmic theme utilities */
+  --color-cosmic-bg: var(--cosmic-bg);
+  --color-cosmic-bg-raised: var(--cosmic-bg-raised);
+  --color-cosmic-glass: var(--cosmic-glass);
+  --color-cosmic-glass-strong: var(--cosmic-glass-strong);
+  --color-cosmic-cyan: var(--cosmic-cyan);
+  --color-cosmic-cyan-bright: var(--cosmic-cyan-bright);
+  --color-cosmic-violet: var(--cosmic-violet);
+  --color-cosmic-violet-bright: var(--cosmic-violet-bright);
+  --color-cosmic-magenta: var(--cosmic-magenta);
+  --color-cosmic-text: var(--cosmic-text);
+  --color-cosmic-text-muted: var(--cosmic-text-muted);
+  --color-cosmic-success: var(--cosmic-success);
+  --color-cosmic-warning: var(--cosmic-warning);
+  --color-cosmic-danger: var(--cosmic-danger);
+
+  /* Cosmic fonts */
+  --font-cosmic-display: var(--font-cosmic-display);
 }
