@@ -603,10 +603,13 @@
   --color-cosmic-magenta: var(--cosmic-magenta);
   --color-cosmic-text: var(--cosmic-text);
   --color-cosmic-text-muted: var(--cosmic-text-muted);
+  --color-cosmic-border: var(--cosmic-border);
+  --color-cosmic-border-glow: var(--cosmic-border-glow);
   --color-cosmic-success: var(--cosmic-success);
   --color-cosmic-warning: var(--cosmic-warning);
   --color-cosmic-danger: var(--cosmic-danger);
 
-  /* Cosmic fonts */
-  --font-cosmic-display: var(--font-cosmic-display);
+  /* Cosmic fonts (fallback chain ensures the utility works even before
+     the layout's next/font variable resolves) */
+  --font-cosmic-display: var(--font-cosmic-display, "Space Grotesk", ui-sans-serif, system-ui, sans-serif);
 }

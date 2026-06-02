@@ -84,11 +84,27 @@
   scrollbar-color: rgba(139, 92, 246, 0.4) transparent;
 }
 
+/* Animation utility classes — used by components and targeted by the
+   prefers-reduced-motion override below. Keep these in sync with the
+   keyframe names above. */
+.animate-cosmic-float-orb {
+  animation: cosmic-float-orb 24s ease-in-out infinite;
+}
+.animate-cosmic-ripple {
+  animation: cosmic-ripple 800ms ease-out forwards;
+}
+.animate-cosmic-pulse {
+  animation: cosmic-pulse 2s ease-in-out infinite;
+}
+.animate-cosmic-slide-in {
+  animation: cosmic-slide-in 300ms ease-out both;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .cosmic-float-orb,
-  .cosmic-ripple,
-  .cosmic-pulse,
-  .cosmic-slide-in {
+  .animate-cosmic-float-orb,
+  .animate-cosmic-ripple,
+  .animate-cosmic-pulse,
+  .animate-cosmic-slide-in {
     animation: none !important;
   }
 }
