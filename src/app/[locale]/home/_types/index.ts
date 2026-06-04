@@ -1,44 +1,19 @@
+import type { LucideIcon } from "lucide-react";
+
 export interface NavItem {
   label: string;
   href: string;
 }
 
 export interface FeatureItem {
-  icon: string;
+  icon: LucideIcon;
   title: string;
   description: string;
-}
-
-export interface StatItem {
-  value: string;
-  label: string;
-}
-
-export interface CTAData {
-  headline: string;
-  description: string;
-  primaryLabel: string;
-  primaryHref: string;
-}
-
-export interface HeroData {
-  badge: string;
-  headline: string;
-  highlightedText: string;
-  description: string;
-  primaryCTA: NavItem;
-  secondaryCTA: NavItem;
 }
 
 export interface FooterSection {
   title: string;
   links: NavItem[];
-}
-
-export interface FooterData {
-  description: string;
-  sections: FooterSection[];
-  copyright: string;
 }
 
 export interface HomeContent {
@@ -51,18 +26,23 @@ export interface HomeContent {
     links: NavItem[];
     cta: NavItem;
   };
-  hero: HeroData;
+  hero: {
+    badge: string;
+    headline: string;
+    description: string;
+    primaryCTA: NavItem;
+    secondaryCTA: NavItem;
+  };
   features: {
     heading: string;
     description: string;
     items: FeatureItem[];
   };
-  showcase: {
-    heading: string;
+  footer: {
     description: string;
-    imageAlt: string;
+    sections: FooterSection[];
+    copyright: string;
   };
-  stats: StatItem[];
-  cta: CTAData;
-  footer: FooterData;
 }
+
+export type FooterData = HomeContent["footer"];

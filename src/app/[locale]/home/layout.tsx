@@ -1,4 +1,5 @@
 import { Navbar } from "./_components/navbar";
+import { Footer } from "./_components/footer";
 import { homeContent } from "./_content";
 
 export default function HomeLayout({
@@ -14,6 +15,7 @@ export default function HomeLayout({
         cta={homeContent.nav.cta}
       />
       <main className="min-h-screen">{children}</main>
+      <Footer brand={homeContent.nav.logo} data={homeContent.footer} />
     </>
   );
 }

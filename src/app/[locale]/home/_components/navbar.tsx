@@ -1,6 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { MobileNav } from "./mobile-nav";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
 import type { NavItem } from "../_types";
 
 interface NavbarProps {
@@ -11,36 +19,36 @@ interface NavbarProps {
 
 export function Navbar({ logo, links, cta }: NavbarProps) {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-lg font-semibold tracking-tight">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="text-base font-semibold tracking-tight">
           {logo}
         </Link>
 
-        <ul className="hidden items-center gap-1 md:flex">
-          {links.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="inline-flex h-9 items-center rounded-md px-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <NavigationMenu className="hidden md:flex">
+          <NavigationMenuList>
+            {links.map((link) => (
+              <NavigationMenuItem key={link.href}>
+                <NavigationMenuLink asChild>
+                  <Link
+                    href={link.href}
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    {link.label}
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm" asChild>
             <Link href={cta.href}>{cta.label}</Link>
           </Button>
           <Button size="sm" asChild>
             <Link href="/aichat">Try AI Chat</Link>
           </Button>
-        </div>
-
-        <div className="md:hidden">
-          <MobileNav logo={logo} links={links} cta={cta} />
         </div>
       </nav>
     </header>
