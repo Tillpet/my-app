@@ -35,7 +35,7 @@ export default function RootLayout({ children }: Props) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <ThemeSwitcher />
+          {/* <ThemeSwitcher /> */}
           {children}
         </Providers>
       </body>

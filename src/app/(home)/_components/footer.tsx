@@ -1,27 +1,46 @@
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import type { FooterData } from "../_types";
 
-interface FooterProps {
-  brand: string;
-  data: FooterData;
-}
+const sections = [
+  {
+    title: "Product",
+    links: [
+      { label: "AI Chat", href: "/aichat" },
+      { label: "Chat", href: "/chat" },
+      { label: "Mall", href: "/mall" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Docs", href: "/docs" },
+      { label: "Blog", href: "/blog" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
+    ],
+  },
+];
 
-export function Footer({ brand, data }: FooterProps) {
+export function Footer() {
   return (
     <footer className="border-t py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <Link href="/" className="text-base font-semibold tracking-tight">
-              {brand}
+              AI-Powered Platform
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              {data.description}
+              AI-powered platform for the next generation of creators.
             </p>
           </div>
 
-          {data.sections.map((section) => (
+          {sections.map((section) => (
             <div key={section.title}>
               <h3 className="text-sm font-semibold">{section.title}</h3>
               <ul className="mt-3 flex flex-col gap-2">
@@ -43,7 +62,8 @@ export function Footer({ brand, data }: FooterProps) {
         <Separator className="my-8" />
 
         <p className="text-center text-xs text-muted-foreground">
-          {data.copyright}
+          &copy; {new Date().getFullYear()} AI-Powered Platform. All rights
+          reserved.
         </p>
       </div>
     </footer>
