@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import {
+  getMessages,
+  getTranslations,
+  setRequestLocale,
+} from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import { Providers } from "@/components/providers";
 import { ThemeSwitcher } from "@/components/theme/theme-switcher";
@@ -53,7 +57,12 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale} data-mode="light" data-theme="default" suppressHydrationWarning>
+    <html
+      lang={locale}
+      data-mode="light"
+      data-theme="default"
+      suppressHydrationWarning
+    >
       <head>
         <script
           // 防闪烁：在 React 水合前把 localStorage 中的主题写回 <html> 属性。
