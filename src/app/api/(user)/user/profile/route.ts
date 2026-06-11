@@ -5,7 +5,7 @@ import { apiResponse } from "@/lib/api-response";
 import logger from "@/lib/logger";
 
 export async function GET() {
-  logger.info("api(/user/profile/route)  GET request");
+  logger.info("api(/user/profile/route) start");
   try {
     const session = await getServerSession(authOptions);
 

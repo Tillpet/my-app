@@ -17,15 +17,15 @@ export const apiResponse = {
     return NextResponse.json({ message }, { status: 400 });
   },
 
-  unauthorized(message = "未授权访问") {
+  unauthorized(message = "unauthorized") {
     return NextResponse.json({ message }, { status: 401 });
   },
 
-  notFound(message = "资源不存在") {
+  notFound(message = "not found") {
     return NextResponse.json({ message }, { status: 404 });
   },
 
-  error(message = "服务器内部错误") {
+  error(message = "internal server error") {
     return NextResponse.json({ message }, { status: 500 });
   },
 };

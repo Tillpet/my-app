@@ -65,11 +65,6 @@ class ApiClient {
     try {
       const response = await fetch(url.toString(), config);
       const status = response.status;
-
-      if (response.status === 204) {
-        return { success: true, data: null, status, message: 'No Content' };
-      }
-
       const json = await response.json();
 
       if (!response.ok) {

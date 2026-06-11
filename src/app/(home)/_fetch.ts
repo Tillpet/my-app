@@ -1,5 +1,4 @@
 import { api } from "@/lib/fetchwrapper";
-import type { ApiResponse } from "@/lib/fetchwrapper";
 import { UserProfile } from "@/app/(home)/_types";
 import logger from "@/lib/logger";
 
