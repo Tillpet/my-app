@@ -3,9 +3,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -133,9 +134,9 @@ export default function LoginPage() {
 
             <p className="text-center text-sm text-muted-foreground mt-4">
               还没有账户?{" "}
-              <a href="/register" className="text-primary hover:underline">
+              <Link href="/register" className="text-primary hover:underline">
                 注册
-              </a>
+              </Link>
             </p>
           </form>
         </CardContent>
