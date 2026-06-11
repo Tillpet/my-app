@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import { apiResponse } from "@/lib/api-response";
 
 const users = [
     { id: 1, name: '张三', email: 'zhangsan@example.com', role: 'admin' },
@@ -7,9 +8,7 @@ const users = [
 ];
 
 export async function GET() {
-
-    // await new Promise(res => setTimeout(res, 3000))
-    return NextResponse.json(users);
+    return apiResponse.success(users);
 }
 
 export async function POST(request: NextRequest) {
@@ -20,5 +19,5 @@ export async function POST(request: NextRequest) {
     };
     users.push(newUser);
     await new Promise(res => setTimeout(res, 3000))
-    return NextResponse.json(newUser, { status: 201 });
+    return apiResponse.created(newUser);
 }

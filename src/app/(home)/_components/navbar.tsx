@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { User, LogOut } from "lucide-react";
 import {
@@ -19,7 +19,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { ThemeSwitcher } from "@/components/theme/theme-switcher";
+import { UserProfile } from "../_types";
 
 const links = [
   { label: "Docs", href: "/docs" },
@@ -29,11 +29,10 @@ const links = [
   { label: "Mall", href: "/mall" },
 ];
 
-export function Navbar() {
-  const { data: session, status } = useSession();
+export function Navbar({ user }: { user: UserProfile | null }) {
   const [open, setOpen] = useState(false);
 
-  const isLoggedIn = status === "authenticated";
+  const isLoggedIn = !!user?.id;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -61,12 +60,12 @@ export function Navbar() {
         {/* <ThemeSwitcher /> */}
 
         <DropdownMenu open={open} onOpenChange={setOpen}>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger asChild onMouseEnter={() => setOpen(true)}>
             <Avatar className="h-9 w-9">
-              {isLoggedIn && session?.user?.image ? (
+              {isLoggedIn && user?.avatarUrl ? (
                 <AvatarImage
-                  src={session.user.image}
-                  alt={session.user.name ?? ""}
+                  src={user.avatarUrl}
+                  alt={user.displayName ?? ""}
                 />
               ) : null}
               <AvatarFallback className="bg-muted">
@@ -74,11 +73,16 @@ export function Navbar() {
               </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48">
+          <DropdownMenuContent
+            align="end"
+            className="w-48"
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
+          >
             {isLoggedIn ? (
               <>
                 <div className="truncate px-2 py-1.5 text-sm font-medium">
-                  {session?.user?.name || session?.user?.email || "User"}
+                  {user?.displayName || user?.email || "User"}
                 </div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => signOut()}>

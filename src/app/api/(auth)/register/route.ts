@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
+import { apiResponse } from "@/lib/api-response";
+import logger from "@/lib/logger";
 
 const registerSchema = z.object({
     email: z.string().email("请输入有效的邮箱地址"),
@@ -15,6 +16,8 @@ export async function POST(request: Request) {
         const body = await request.json();
         const validatedData = registerSchema.parse(body);
 
+        logger.info({ email: validatedData.email }, "register request");
+
         const existingUser = await prisma.user.findFirst({
             where: {
                 OR: [
@@ -26,16 +29,12 @@ export async function POST(request: Request) {
 
         if (existingUser) {
             if (existingUser.email === validatedData.email) {
-                return NextResponse.json(
-                    { message: "该邮箱已被注册" },
-                    { status: 400 }
-                );
+                logger.warn({ email: validatedData.email }, "register failed: email already exists");
+                return apiResponse.badRequest("该邮箱已被注册");
             }
             if (existingUser.username === validatedData.username) {
-                return NextResponse.json(
-                    { message: "该用户名已被使用" },
-                    { status: 400 }
-                );
+                logger.warn({ username: validatedData.username }, "register failed: username already exists");
+                return apiResponse.badRequest("该用户名已被使用");
             }
         }
 
@@ -50,27 +49,21 @@ export async function POST(request: Request) {
             },
         });
 
-        return NextResponse.json(
-            {
-                id: user.id,
-                email: user.email,
-                username: user.username,
-                displayName: user.displayName,
-            },
-            { status: 201 }
-        );
+        logger.info({ userId: user.id, email: user.email }, "register success");
+
+        return apiResponse.created({
+            id: user.id,
+            email: user.email,
+            username: user.username,
+            displayName: user.displayName,
+        });
     } catch (error) {
         if (error instanceof z.ZodError) {
             const firstError = error.issues[0];
-            return NextResponse.json(
-                { message: firstError?.message || "验证错误" },
-                { status: 400 }
-            );
+            logger.warn({ issues: error.issues }, "register validation failed");
+            return apiResponse.badRequest(firstError?.message || "验证错误");
         }
-        console.error("Register error:", error);
-        return NextResponse.json(
-            { message: "服务器内部错误" },
-            { status: 500 }
-        );
+        logger.error({ err: error }, "register error");
+        return apiResponse.error();
     }
 }
