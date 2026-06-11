@@ -1,19 +1,13 @@
-import { toast } from 'sonner';
 import logger from './logger';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000/api';
 
-export class ApiError extends Error {
+export type ApiResponse<T> = {
+  success: boolean;
+  data: T | null;
   status: number;
-  data: unknown;
-
-  constructor(message: string, status: number, data?: unknown) {
-    super(message);
-    this.name = 'ApiError';
-    this.status = status;
-    this.data = data;
-  }
-}
+  message: string;
+};
 
 type Interceptor = (config: RequestInit) => RequestInit | Promise<RequestInit>;
 
@@ -34,7 +28,7 @@ class ApiClient {
     this.interceptors.push(interceptor);
   }
 
-  private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  private async request<T>(endpoint: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
     const base = this.baseURL.endsWith('/') ? this.baseURL : `${this.baseURL}/`;
     const url = new URL(endpoint.startsWith('/') ? endpoint.slice(1) : endpoint, base);
 
@@ -62,43 +56,39 @@ class ApiClient {
       body = JSON.stringify(body);
     }
 
-    let config: RequestInit = {
-      ...options,
-      headers,
-      body,
-    };
+    let config: RequestInit = { ...options, headers, body };
 
     for (const interceptor of this.interceptors) {
       config = await interceptor(config);
     }
 
-    const response = await fetch(url.toString(), config);
+    try {
+      const response = await fetch(url.toString(), config);
+      const status = response.status;
 
-    if (!response.ok) {
-      let errorData: unknown = { message: response.statusText };
-      try {
-        errorData = await response.json();
-      } catch {
-        // non-JSON response
+      if (response.status === 204) {
+        return { success: true, data: null, status, message: 'No Content' };
       }
 
-      const message =
-        (errorData as Record<string, unknown>)?.message as string ||
-        (errorData as Record<string, unknown>)?.error as string ||
-        `Request failed: ${response.status} ${response.statusText}`;
+      const json = await response.json();
 
-      if (typeof window !== 'undefined') {
-        toast.error(message);
-      } else {
-        logger.error({ err: { status: response.status, data: errorData } }, message);
+      if (!response.ok) {
+        const message =
+          json?.message || json?.error || `Request failed: ${response.status} ${response.statusText}`;
+
+        logger.error({ err: { status, data: json } }, message);
+
+        return { success: false, data: null, status, message };
       }
 
-      throw new ApiError(message, response.status, errorData);
+      return { success: true, data: json as T, status, message: 'OK' };
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unknown error';
+
+      logger.error({ err }, message);
+
+      return { success: false, data: null, status: 0, message };
     }
-
-    if (response.status === 204) return {} as T;
-
-    return response.json() as Promise<T>;
   }
 
   get<T>(endpoint: string, options?: RequestInit) {
